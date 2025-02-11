@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,20 +12,22 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-
     public function login(Request $request)
     {
+        
         $credentials = $request->validate([
-            'username' => 'required|username',
-            'password' => 'required|min:6',
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/home');
         }
 
-        return back()->withErrors(['username' => 'Username atau password salah.'])->withInput();
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function logout(Request $request)
@@ -32,6 +35,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login')->with('status', 'Anda telah logout.');
+        return redirect('/');
     }
 }
