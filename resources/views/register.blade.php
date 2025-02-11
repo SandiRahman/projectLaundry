@@ -98,35 +98,35 @@
 </head>
 <body>
 
-    <div class="container">
-        <h2>Register</h2>
-        <form action="register.php" method="POST">
-            <label for="NamaLengkap">Nama Lengkap</label>
-            <input type="text" name="NamaLengkap" id="NamaLengkap" required>
+<div class="container">
+    <h2>Form Registrasi</h2>
+    <form action="{{ route('register') }}" method="POST">
+        @csrf
 
-            <label for="Username">Username</label>
-            <input type="text" name="Username" id="Username" required>
+        <label for="namalengkap">Nama Lengkap</label>
+        <input type="text" name="namalengkap" id="namalengkap" required>
 
-            <label for="Email">Email</label>
-            <input type="email" name="Email" id="Email" required>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
 
-            <label for="Password">Password</label>
-            <input type="password" name="Password" id="Password" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
 
-            <label for="Alamat">Alamat</label>
-            <textarea name="Alamat" id="Alamat" rows="3" required></textarea>
+        <label for="id_outlet">ID Outlet</label>
+        <input type="number" name="id_outlet" id="id_outlet" required>
 
-            <label for="Role">Role</label>
-            <select name="Role" id="Role" required>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
+        <label for="role">Role</label>
+        <select name="role" id="role" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="owner">Owner</option>
+        </select>
 
-            <button type="submit">Daftar</button>
-        </form>
+        <button type="submit">Daftar</button>
+    </form>
 
-        <p>Sudah punya akun? <a href= {{ route('login') }}>Login di sini</a></p>
-    </div>
+    <p>Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
+</div>
 
 </body>
 </html>
