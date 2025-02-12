@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->string('username', 30)->unique();
-            $table->text('password');
+            $table->string('password'); // Gunakan string, bukan text
             $table->foreignId('id_outlet')->constrained('outlet')->onDelete('cascade');
-            $table->enum('role', ['admin', 'kasir', 'owner']);
+            $table->enum('role', ['admin', 'kasir', 'owner']); // Perbaikan dari 'fanum' ke 'enum'
+            $table->timestamps(); // Tambahkan timestamps untuk created_at & updated_at
         });
     }
 

@@ -4,42 +4,40 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
+    use RegistersUsers;
+
+    protected $redirectTo = '/login';
+
+    /**
+     * Validasi input pendaftaran.
+     */
+    protected function validator(array $data)
     {
-        return view('register');
+        return Validator::make($data, [
+            'nama' => ['required', 'string', 'max:255'], // Sesuai dengan kolom di tabel user
+            'username' => ['required', 'string', 'max:255', 'unique:user'], // Sesuaikan dengan kolom username
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', Rule::in(['owner', 'admin', 'kasir'])], // Sesuaikan dengan pilihan role
+        ]);
     }
 
-    public function register(Request $request)
+    /**
+     * Membuat user baru setelah pendaftaran berhasil.
+     */
+    protected function create(array $data)
     {
-        // Validasi input
-        $request->validate([
-            'NamaLengkap' => 'required|string|max:255',
-            'Username' => 'required|string|max:255|unique:users',
-            'Email' => 'required|string|email|max:255|unique:users',
-            'Password' => 'required|string|min:6|confirmed',
-            'Alamat' => 'required|string',
-            'Role' => 'required|in:user,admin',
+        return User::create([
+            'nama' => $data['nama'], // Sesuaikan dengan kolom di tabel user
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
         ]);
-
-        // Simpan ke database
-        $user = User::create([
-            'NamaLengkap' => $request->NamaLengkap,
-            'Username' => $request->Username,
-            'Email' => $request->Email,
-            'Password' => Hash::make($request->Password),
-            'Alamat' => $request->Alamat,
-            'Role' => $request->Role,
-        ]);
-
-        Auth::login($user);
-
-        return redirect()->route('home')->with('success', 'Registrasi berhasil!');
     }
 }

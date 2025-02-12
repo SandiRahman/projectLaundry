@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,14 +10,14 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth.login');
     }
-
     public function login(Request $request)
     {
+        
         $credentials = $request->validate([
-            'username' => 'required|username',
-            'password' => 'required|min:6',
+            'username' => ['required'],
+            'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
@@ -24,7 +25,9 @@ class LoginController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors(['username' => 'Username atau password salah.'])->withInput();
+        return back()->withErrors([
+            'username' => 'Username atau password salah',
+        ]);
     }
 
     public function logout(Request $request)
@@ -32,6 +35,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login')->with('status', 'Anda telah logout.');
+        return redirect('/');
     }
 }
