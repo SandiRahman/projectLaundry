@@ -26,7 +26,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
+            'username' => 'Username atau password salah',
         ]);
     }
 
