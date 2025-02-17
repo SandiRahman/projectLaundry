@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    protected $redirectTo = '/entry';
+    protected $redirectTo = '/paket';
 
     /**
      * Validasi input pendaftaran.
@@ -48,9 +48,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
+        // Membuat pelanggan baru
         $this->create($request->all());
-
+        // Menyimpan nama pelanggan yang baru saja didaftarkan di session
+        session(['nama' => $request->nama]);
+        // Redirect ke halaman paket
         return redirect($this->redirectTo);
     }
+
 }
