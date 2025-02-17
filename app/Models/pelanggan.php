@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pelanggan extends Model
 {
-    use HasFactory; // Wajib ditambahkan
-
-    protected $table = 'pelanggans'; // Pastikan sesuai dengan nama tabel di database
-
+    use HasFactory;
+    protected $table = 'pelanggan';
+    public $timestamps = false;
     protected $fillable = [
         'nama',
         'alamat',
+        'jenis_kelamin',
         'tlp',
+        
     ];
 }
