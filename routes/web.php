@@ -6,7 +6,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\PaketController;
+use App\Http\Controllers\UserController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -41,3 +42,9 @@ Auth::routes(['verify' => true]);
 
 // Route untuk home setelah login
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Route untuk ke paket
+Route::get('/paket', [PaketController::class, 'showForm'])->name('paket');
+Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
+
+Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');

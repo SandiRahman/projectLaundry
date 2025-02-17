@@ -69,9 +69,8 @@
                         </div>
                     </div>
                 </div> 
-                <div class="header-right d-none d-lg-block">
-                    <a href="#" class="header-btn1"><img src="assets/img/icon/call.png" alt=""> (08) 728 256 266</a>
-                    <a href="#" class="header-btn2">Make an Appointment</a>
+                <div class="header-right d-none d-lg-block" style="margin-right: 20px;">
+                    <a href="{{ route('login') }}">Logout</a>
                 </div>
 
                 <!-- Mobile Menu -->

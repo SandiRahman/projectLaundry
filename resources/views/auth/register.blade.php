@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Register Pelanggan') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -26,14 +26,14 @@
                             </div>
                         </div>
 
-                        {{-- Username --}}
+                        {{-- Alamat --}}
                         <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
+                            <label for="alamat" class="col-md-4 col-form-label text-md-end">{{ __('Alamat') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
+                                <textarea id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required>{{ old('alamat') }}</textarea>
 
-                                @error('username')
+                                @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -41,42 +41,32 @@
                             </div>
                         </div>
 
-                        {{-- Password --}}
+                        {{-- Jenis Kelamin --}}
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-end">{{ __('Jenis Kelamin') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Konfirmasi Password --}}
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        {{-- Role --}}
-                        <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
-                                    <option value="owner">Owner</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="kasir">Kasir</option>
+                                <select id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" required>
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
                                 </select>
 
-                                @error('role')
+                                @error('jenis_kelamin')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Telepon --}}
+                        <div class="row mb-3">
+                            <label for="tlp" class="col-md-4 col-form-label text-md-end">{{ __('Telepon') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="tlp" type="text" class="form-control @error('tlp') is-invalid @enderror" name="tlp" value="{{ old('tlp') }}" required>
+
+                                @error('tlp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Pelanggan;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/paket';
 
     /**
      * Validasi input pendaftaran.
@@ -21,23 +17,43 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nama' => ['required', 'string', 'max:255'], // Sesuai dengan kolom di tabel user
-            'username' => ['required', 'string', 'max:255', 'unique:user'], // Sesuaikan dengan kolom username
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', Rule::in(['owner', 'admin', 'kasir'])], // Sesuaikan dengan pilihan role
+            'nama' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'jenis_kelamin' => 'required|in:L,P',
+            'tlp' => 'required|string|max:15|',
+        ]);
+    }
+
+    protected function create(array $data)
+    {
+        return Pelanggan::create([
+            'nama' => $data['nama'],
+            'alamat' => $data['alamat'],
+            'jenis_kelamin' => $data['jenis_kelamin'],
+            'tlp' => $data['tlp'],
         ]);
     }
 
     /**
-     * Membuat user baru setelah pendaftaran berhasil.
+     * Show the registration form.
      */
-    protected function create(array $data)
+    public function showRegistrationForm()
     {
-        return User::create([
-            'nama' => $data['nama'], // Sesuaikan dengan kolom di tabel user
-            'username' => $data['username'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role'],
-        ]);
+        return view('auth.register');
     }
+
+    /**
+     * Handle the registration request.
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        // Membuat pelanggan baru
+        $this->create($request->all());
+        // Menyimpan nama pelanggan yang baru saja didaftarkan di session
+        session(['nama' => $request->nama]);
+        // Redirect ke halaman paket
+        return redirect($this->redirectTo);
+    }
+
 }
