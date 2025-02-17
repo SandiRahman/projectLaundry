@@ -73,6 +73,7 @@
                     <a href="#" class="header-btn1"><img src="assets/img/icon/call.png" alt=""> (08) 728 256 266</a>
                     <a href="#" class="header-btn2">Make an Appointment</a>
                 </div>
+
                 <!-- Mobile Menu -->
                 <div class="col-12">
                     <div class="mobile_menu d-block d-lg-none"></div>

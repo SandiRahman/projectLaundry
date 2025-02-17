@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -26,6 +27,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Route untuk dashboard
 Route::get('/dashboard', [DashboardController::class, 'showDashboardForm'])->name('dashboard');
 Route::post('/dashboard', [DashboardController::class, 'dashboard']);
+
+
+Route::get('/admindashboard', [DashboardController::class, 'adminDashboard'])->name('admindashboard');
+Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
 
 // Menggunakan AuthController (jika masih dibutuhkan)
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
