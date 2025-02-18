@@ -1,56 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-</head>
-<body>
+ <h2>Manajemen Outlet</h2>
 
-    <div class="welcome">
-        <h1>Welcome to Admin Dashboard</h1>
-        <p>Only accessible by users with the 'admin' role.</p>
-    </div>
+    <!-- Notifikasi -->
+    @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+    @endif
 
-    <div class="logout">
-        <a href="{{ route('login') }}" class="btn btn-sm btn-danger">Logout</a>
-    </div>
+    <!-- Form Tambah Outlet -->
+    <h3>Tambah Outlet</h3>
+    <form action="{{ route('outlet.store') }}" method="POST">
+        @csrf
+        <label>Nama:</label>
+        <input type="text" name="nama" required>
+        
+        <label>Alamat:</label>
+        <textarea name="alamat" required></textarea>
+        
+        <label>Telepon:</label>
+        <input type="text" name="tlp" required>
 
-    <div class="Req-Reg">
-        <h1>Daftar Pengguna</h1>
-        <p>Berikut adalah daftar pengguna yang terdaftar.</p>
+        <button type="submit">Tambah</button>
+    </form>
 
-        <div class="container">
-            <h2>Daftar User</h2>
+    <hr>
 
-            @isset($users)
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Telepon</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $index => $user)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ ucfirst($user->role ?? 'user') }}</td>
-                        <td>{{ $user->phone ?? '-' }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @else
-                <p>Tidak ada data pengguna tersedia.</p>
-            @endisset
-        </div>
-    </div>
+    <!-- Daftar Outlet -->
+    <h3>Daftar Outlet</h3>
+    <table border="1">
+        <tr>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Telepon</th>
+            <th>Aksi</th>
+        </tr>
+        @foreach($outlet as $outlet)
+            <tr>
+                <td>{{ $outlet->nama }}</td>
+                <td>{{ $outlet->alamat }}</td>
+                <td>{{ $outlet->tlp }}</td>
+                <td>
+                    <!-- Form Edit -->
+                    <form action="{{ route('outlet.update', $outlet->id) }}" method="POST">
+                        @csrf
+                        <input type="text" name="nama" value="{{ $outlet->nama }}" required>
+                        <input type="text" name="alamat" value="{{ $outlet->alamat }}" required>
+                        <input type="text" name="tlp" value="{{ $outlet->tlp }}" required>
+                        <button type="submit">Update</button>
+                    </form>
 
-</body>
-</html>
+                    <!-- Form Hapus -->
+                    <form action="{{ route('outlet.destroy', $outlet->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" onclick="return confirm('Hapus outlet ini?')">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+
+    <h2>Manajemen Outlet</h2>
+
+<!-- Notifikasi -->
+@if (session('success'))
+    <p style="color: green;">{{ session('success') }}</p>
+@endif
+
+<!-- Form Tambah Outlet -->
+<h3>Tambah Outlet</h3>
+<form action="{{ route('outlet.store') }}" method="POST">
+    @csrf
+    <label>Nama:</label>
+    <input type="text" name="nama" required>
+    
+    <label>Alamat:</label>
+    <textarea name="alamat" required></textarea>
+    
+    <label>Telepon:</label>
+    <input type="text" name="tlp" required>
+
+    <button type="submit">Tambah</button>
+</form>
+
+<hr>
+
+<!-- Daftar Outlet -->
+<h3>Daftar Outlet</h3>
+<table border="1">
+    <tr>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Telepon</th>
+        <th>Aksi</th>
+    </tr>
+    @foreach($outlet as $outlet)
+        <tr>
+            <td>{{ $outlet->nama }}</td>
+            <td>{{ $outlet->alamat }}</td>
+            <td>{{ $outlet->tlp }}</td>
+            <td>
+                <!-- Form Edit -->
+                <form action="{{ route('outlet.update', $outlet->id) }}" method="POST">
+                    @csrf
+                    <input type="text" name="nama" value="{{ $outlet->nama }}" required>
+                    <input type="text" name="alamat" value="{{ $outlet->alamat }}" required>
+                    <input type="text" name="tlp" value="{{ $outlet->tlp }}" required>
+                    <button type="submit">Update</button>
+                </form>
+
+                <!-- Form Hapus -->
+                <form action="{{ route('outlet.destroy', $outlet->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" onclick="return confirm('Hapus outlet ini?')">Hapus</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</table>
