@@ -36,11 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'user',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    'owner' => [
+        'driver' => 'session',
+        'provider' => 'owners', // Sesuaikan dengan provider di bawah
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -60,16 +66,16 @@ return [
     */
 
     'providers' => [
-        'user' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
+
+    'owners' => [ // Pastikan provider ini ada
+        'driver' => 'eloquent',
+        'model' => App\Models\Owner::class, // Sesuaikan dengan model
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

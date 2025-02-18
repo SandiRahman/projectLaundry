@@ -6,6 +6,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\LoginOwnerController;
+use App\Http\Controllers\Owner\DashboardOwnerController;
+
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -31,8 +34,22 @@ Route::post('/dashboard', [DashboardController::class, 'dashboard']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('/loginowner', [LoginOwnerController::class, 'showLoginForm'])->name('owner.login');
+Route::post('/loginowner', [LoginOwnerController::class, 'login']);
+Route::post('/logoutowner', [LoginOwnerController::class, 'logout'])->name('owner.logout');
+
+// Route untuk dashboard owner
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboardowner', function () {
+        return view('owner.dashboardowner');
+    })->name('owner.dashboard');
+});
+
+Route::get('/dashboardowner', [DashboardOwnerController::class, 'index'])->name('dashboard.owner');
+
+
 // Menambahkan fitur autentikasi Laravel
 Auth::routes(['verify' => true]);
 
-// Route untuk home setelah login
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// // Route untuk home setelah login
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
