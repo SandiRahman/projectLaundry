@@ -15,4 +15,8 @@ class DashboardController extends Controller
     {
         return view('/admindashboard'); // Pastikan file ini ada di `resources/views/admin/dashboard.blade.php`
     }
+    public function kasirDashboard()
+    {
+        return view('/kasirdashboard'); // Pastikan file ini ada di `resources/views/admin/dashboard.blade.php`
+    }
 }

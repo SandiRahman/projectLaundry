@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = user::all(); // Ambil semua data dari tabel users
+        $user = user::all(); // Ambil semua data dari tabel users
         return view('admindashboard', compact('user')); // Kirim data ke view
     }
 }
