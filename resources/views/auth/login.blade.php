@@ -63,6 +63,9 @@
                                     </a>
                                 @endif
                             </div>
+
+                        <div>
+                            <a href="{{ url('/admin/login') }}">Login Admin</a>
                         </div>
                     </form>
                 </div>

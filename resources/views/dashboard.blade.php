@@ -69,9 +69,14 @@
                         </div>
                     </div>
                 </div> 
+<<<<<<< HEAD
                 <div class="button-group">
+=======
+                <div class="header-right d-none d-lg-block" style="margin-right: 20px;">
+>>>>>>> ccdc3c1a4ddb6efc2816e29d3043071f9ae6961d
                     <a href="{{ route('login') }}">Logout</a>
                 </div>
+
                 <!-- Mobile Menu -->
                 <div class="col-12">
                     <div class="mobile_menu d-block d-lg-none"></div>

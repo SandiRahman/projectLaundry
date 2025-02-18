@@ -22,13 +22,23 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            if (auth()->user()->role == 'admin') {
+                return redirect()->intended('/admindashboard'); // Redirect ke dashboard admin
+            }
+            else{
+        
+                    // Jika bukan admin, redirect ke halaman lain (misalnya home)
+                    return redirect()->intended('/dashboard');
+            }
+  
         }
 
         return back()->withErrors([
             'username' => 'Username atau password salah',
         ]);
     }
+
 
     public function logout(Request $request)
     {
