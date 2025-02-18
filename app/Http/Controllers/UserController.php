@@ -12,4 +12,5 @@ class UserController extends Controller
         $users = user::all(); // Ambil semua data dari tabel users
         return view('admindashboard', compact('user')); // Kirim data ke view
     }
+
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\OutletController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -30,8 +32,12 @@ Route::get('/dashboard', [DashboardController::class, 'showDashboardForm'])->nam
 Route::post('/dashboard', [DashboardController::class, 'dashboard']);
 
 
-Route::get('/admindashboard', [DashboardController::class, 'adminDashboard'])->name('admindashboard');
+Route::get('/admindashboard', [AdminDashboardController::class, 'index'])->name('admindashboard');
+Route::post('/admindashboard/store', [AdminDashboardController::class, 'store'])->name('admindashboard.store');
 Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+
+Route::get('/user-dashboard', [DashboardController::class, 'userDashboard']);
+
 
 // Menggunakan AuthController (jika masih dibutuhkan)
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -48,3 +54,9 @@ Route::get('/paket', [PaketController::class, 'showForm'])->name('paket');
 Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+
+// Route untuk outlet
+Route::get('/outlet', [OutletController::class, 'index'])->name('outlet.index');
+Route::post('/outlet/store', [OutletController::class, 'store'])->name('outlet.store');
+Route::post('/outlet/update/{id}', [OutletController::class, 'update'])->name('outlet.update');
+Route::post('/outlet/destroy/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');

@@ -15,4 +15,10 @@ class DashboardController extends Controller
     {
         return view('/admindashboard'); // Pastikan file ini ada di `resources/views/admin/dashboard.blade.php`
     }
+
+    public function userDashboard()
+    {
+        // Logika untuk menampilkan dashboard user
+        return view('dashboard');
+    }
 }
