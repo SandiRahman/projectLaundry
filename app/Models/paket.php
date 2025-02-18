@@ -9,7 +9,7 @@ class Paket extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_paket'; // Sesuaikan dengan tabel di database
+    protected $table = 'paket'; // Sesuaikan dengan tabel di database
 
     protected $fillable = [
         'id_outlet',

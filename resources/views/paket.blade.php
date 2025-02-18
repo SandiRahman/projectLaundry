@@ -6,6 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Entry Register') }}</div>
+                <a href="{{ route('registrasi') }}">Logout</a>
+                <h1>{{ session('pelanggan')->nama }}</h1>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('paket.store') }}">
@@ -14,7 +16,6 @@
                         {{-- ID Outlet --}}
                         <div class="row mb-3">
                             <label for="id_outlet" class="col-md-4 col-form-label text-md-end">{{ __('Outlet') }}</label>
-
                             <div class="col-md-6">
                                 <select id="id_outlet" class="form-control @error('id_outlet') is-invalid @enderror" name="id_outlet" required>
                                     <option value="" disabled selected>Pilih Outlet</option>
@@ -38,9 +39,7 @@
                                 <select id="jenis" class="form-control @error('jenis') is-invalid @enderror" name="jenis" required>
                                     <option value="kiloan">Kiloan</option>
                                     <option value="selimut">Selimut</option>
-                                    <option value="bed_cover">Bed Cover</option>
-                                    <option value="kaos">Kaos</option>
-                                    <option value="lainnya">Lainnya</option>
+                                    <option value="bed_cover">Bed Cover</option>y
                                 </select>
 
                                 @error('jenis')
@@ -83,7 +82,7 @@
                         <div class="row mb-3">
                             <label for="harga" class="col-md-4 col-form-label text-md-end">{{ __('Harga') }}</label>
                             <div class="col-md-6">
-                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" required>
+                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" required readonly>
 
                                 @error('harga')
                                     <span class="invalid-feedback" role="alert">
@@ -107,4 +106,30 @@
         </div>
     </div>
 </div>
+
+{{-- Script untuk menghitung harga otomatis --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const jenisElement = document.getElementById("jenis");
+        const jumlahElement = document.getElementById("jumlah");
+        const hargaElement = document.getElementById("harga");
+
+        // Harga per jenis (bisa disesuaikan sesuai kebutuhan)
+        const hargaPerJenis = {
+            kiloan: 6000,
+            selimut: 16000,
+            bed_cover: 15000,
+        };
+
+        function updateHarga() {
+            const jenis = jenisElement.value;
+            const jumlah = parseInt(jumlahElement.value) || 0;
+            const hargaSatuan = hargaPerJenis[jenis] || 0;
+            hargaElement.value = jumlah * hargaSatuan;
+        }
+
+        jenisElement.addEventListener("change", updateHarga);
+        jumlahElement.addEventListener("input", updateHarga);
+    });
+</script>
 @endsection

@@ -18,7 +18,7 @@ class PaketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_outlet' => 'required|exists:outlet,id_outlet', // Pastikan id_outlet ada di tabel outlets
+            'id_outlet' => 'required|exists:outlet,id', // Pastikan id_outlet ada di tabel outlets
             'jenis' => 'required|string',
             'nama_paket' => 'required|string|max:255',
             'jumlah' => 'required|integer',
@@ -33,6 +33,6 @@ class PaketController extends Controller
             'harga' => $request->harga,
         ]);
 
-        return redirect()->route('/paket')->with('success', 'Paket berhasil ditambahkan');
+        return redirect()->route('paket')->with('success', 'Paket berhasil ditambahkan');
     }
 }
