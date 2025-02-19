@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisterKhususController;
+use App\Http\Controllers\OutletController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -49,3 +51,13 @@ Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 
 // Route buat ke admin dashboard
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+
+// Route buat register khusus
+Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationForm'])->name('register');
+Route::post('/registerkhusus', [RegisterKhususController::class, 'register']);
+
+// Route buat outlet
+Route::get('outlet', [OutletController::class, 'index'])->name('outlet.index');
+Route::post('outlet', [OutletController::class, 'store'])->name('outlet.store');
+Route::put('outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
+Route::delete('outlet/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');

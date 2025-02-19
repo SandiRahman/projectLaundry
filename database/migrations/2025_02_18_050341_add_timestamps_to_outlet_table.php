@@ -9,20 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('paket', function (Blueprint $table) {
-            $table->timestamps(); 
+        Schema::table('outlet', function (Blueprint $table) {
+            $table->timestamps(); // Menambahkan kolom created_at dan updated_at
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('paket', function (Blueprint $table) {
+        Schema::table('outlet', function (Blueprint $table) {
             //
         });
     }
