@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterKhususController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\TransaksiController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -18,6 +19,8 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -62,3 +65,5 @@ Route::get('outlet', [OutletController::class, 'index'])->name('outlet.index');
 Route::post('outlet', [OutletController::class, 'store'])->name('outlet.store');
 Route::put('outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
 Route::delete('outlet/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');
+
+Route::resource('transaksi', TransaksiController::class);

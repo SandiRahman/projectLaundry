@@ -33,6 +33,6 @@ class PaketController extends Controller
             'harga' => $request->harga,
         ]);
 
-        return redirect()->route('paket')->with('success', 'Paket berhasil ditambahkan');
+        return redirect()->route('transaksi.index')->with('success', 'Paket berhasil ditambahkan');
     }
 }
