@@ -46,14 +46,19 @@ class RegisterController extends Controller
      * Handle the registration request.
      */
     public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        // Membuat pelanggan baru
-        $this->create($request->all());
-        // Menyimpan nama pelanggan yang baru saja didaftarkan di session
-        session(['pelanggan' => $this->create($request->all())]);
-        // Redirect ke halaman paket
-        return redirect($this->redirectTo);
-    }
+{
+    $this->validator($request->all())->validate();
+
+    // Simpan pelanggan dalam variabel
+    $pelanggan = $this->create($request->all());
+
+    // Simpan pelanggan ke session
+    session(['pelanggan' => $pelanggan]);
+
+    // Redirect ke halaman paket
+    return redirect($this->redirectTo)->with('success', 'Pendaftaran berhasil!');
+
+    // return redirect($this->redirectTo);
+}
 
 }

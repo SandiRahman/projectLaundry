@@ -28,7 +28,7 @@ class LoginController extends Controller
             }
             
             elseif (auth()->user()->role == 'kasir') {
-                return redirect()->intended('/register');
+                return redirect()->intended('/paket');
             }
 
             else{

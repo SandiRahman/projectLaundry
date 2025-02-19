@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Validator;
 class RegisterKhususController extends Controller
 {
     // Show the registration form
-    public function showRegistrationForm()
+    public function showRegisterForm()
     {
         $outlet = Outlet::all();
         return view('auth.registerkhusus', compact('outlet'));
     }
 
     // Handle the registration logic
-    public function register(Request $request)
+    public function Register(Request $request)
     {
         // Validate the registration data
         $validator = Validator::make($request->all(), [
