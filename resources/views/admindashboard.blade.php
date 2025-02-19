@@ -46,7 +46,8 @@
             <input type="text" name="nama" value="{{ $outlets->nama }}" required>
             <input type="text" name="alamat" value="{{ $outlets->alamat }}" required>
             <input type="text" name="tlp" value="{{ $outlets->tlp }}" required>
-            <button type="submit">Update</button>
+             <!-- Tombol Edit, Arahkan ke Halaman Edit -->
+             <a href="{{ route('outletedit', $outlets->id) }}">Edit</a>
         </form>
 
         <!-- Form Hapus -->
@@ -60,3 +61,10 @@
 @endforeach
 
 </table>
+
+
+        <div class="CRUD-Produk">Daftar Paket
+
+            
+
+        </div>

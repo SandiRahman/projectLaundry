@@ -35,6 +35,9 @@ Route::post('/dashboard', [DashboardController::class, 'dashboard']);
 Route::get('/admindashboard', [DashboardController::class, 'adminDashboard'])->name('admindashboard');
 Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
 
+Route::get('/outlet/{id}/edit', [OutletController::class, 'edit'])->name('outletedit');
+Route::put('/outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
+
 // Menggunakan AuthController (jika masih dibutuhkan)
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');

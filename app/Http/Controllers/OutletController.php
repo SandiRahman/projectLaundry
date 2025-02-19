@@ -37,22 +37,30 @@ class OutletController extends Controller
         return redirect()->route('admindashboard')->with('success', 'Outlet berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'tlp' => 'required',
-        ]);
+    public function edit($id)
+{
+    $outlet = Outlet::findOrFail($id);
+    return view('outletedit', compact('outlet'));
+}
 
-        // Mencari outlet dan update
-        $outlet = Outlet::findOrFail($id);  // Correct capitalization
-        $outlet->update($request->all());        
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string',
+        'tlp' => 'required|string|max:15'
+    ]);
 
-        // Kembali ke halaman daftar outlet
-        return redirect()->route('admindashboard')->with('success', 'Outlet berhasil diperbarui!');
-    }
+    $outlet = Outlet::findOrFail($id);
+    $outlet->update([
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'tlp' => $request->tlp
+    ]);
+
+    return redirect()->route('admindashboard')->with('success', 'Outlet berhasil diperbarui.');
+}
+
 
     public function destroy($id)
     {
