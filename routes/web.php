@@ -53,8 +53,8 @@ Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
 
 // Route buat register khusus
-Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegisterForm'])->name('register');
-Route::post('/registerkhusus', [RegisterKhususController::class, 'Register']);
+Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationKhususForm'])->name('registerkhusus');
+Route::post('/registerkhusus', [RegisterKhususController::class, 'registerkhusus']);
 
 // Route buat outlet
 Route::get('outlet', [OutletController::class, 'index'])->name('outlet.index');

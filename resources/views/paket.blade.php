@@ -7,12 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Entry Register') }}</div>
                 <a href="{{ route('register') }}">Logout</a>
-                @if(session('user'))
-    <h1>{{ session('user')->nama }}</h1>
-@else
-    <h1>Nama pelanggan tidak ditemukan</h1>
-@endif
-
+                <h1>{{ session('pelanggan')->nama }}</h1>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('paket.store') }}">
