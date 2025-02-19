@@ -18,8 +18,6 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -56,8 +54,8 @@ Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
 
 // Route buat register khusus
-Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationForm'])->name('register');
-Route::post('/registerkhusus', [RegisterKhususController::class, 'register']);
+Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationKhususForm'])->name('registerkhusus');
+Route::post('/registerkhusus', [RegisterKhususController::class, 'registerkhusus']);
 
 // Route buat outlet
 Route::get('outlet', [OutletController::class, 'index'])->name('outlet.index');

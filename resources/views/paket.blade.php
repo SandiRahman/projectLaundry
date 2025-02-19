@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Entry Register') }}</div>
-                <a href="{{ route('registrasi') }}">Logout</a>
+                <a href="{{ route('register') }}">Logout</a>
                 <h1>{{ session('pelanggan')->nama }}</h1>
 
                 <div class="card-body">
