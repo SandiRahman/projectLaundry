@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,8 @@ class RegisterKhususController extends Controller
     // Show the registration form
     public function showRegistrationForm()
     {
-        return view('auth.registerkhusus');
+        $outlet = Outlet::all();
+        return view('auth.registerkhusus', compact('outlet'));
     }
 
     // Handle the registration logic
@@ -22,6 +24,7 @@ class RegisterKhususController extends Controller
     {
         // Validate the registration data
         $validator = Validator::make($request->all(), [
+            'id_outlet' => 'required|exists:outlet,id',
             'nama' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:user'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -36,6 +39,7 @@ class RegisterKhususController extends Controller
 
         // Create the user
         $user = User::create([
+            'id_outlet' => $request->id_outlet,
             'nama' => $request->nama,
             'username' => $request->username,
             'password' => Hash::make($request->password),

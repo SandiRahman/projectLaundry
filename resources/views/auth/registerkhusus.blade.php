@@ -11,6 +11,22 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
+                        {{-- Outlet --}}
+                        <div class="col-md-6">
+                            <select id="id_outlet" class="form-control @error('id_outlet') is-invalid @enderror" name="id_outlet" required>
+                                <option value="">Pilih Outlet</option>
+                                @foreach ($outlet as $outlet)
+                                    <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
+                                @endforeach
+                            </select>
+                    
+                            @error('id_outlet')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         {{-- Nama --}}
                         <div class="row mb-3">
                             <label for="nama" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
