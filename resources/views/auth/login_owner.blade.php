@@ -171,7 +171,7 @@
 <body>
     <div class="container">
         <div class="left-panel">
-            <img src="https://png.pngtree.com/png-clipart/20250102/original/pngtree-modern-washing-machine-with-laundry-basket-and-clothes-home-appliance-illustration-png-image_20003669.png" alt="Welcome Image">
+            <img src ="{{ asset('foto/laundry.png') }}" alt="Laundry Image">
         </div>
 
         <div class="right-panel">
