@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterKhususController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanKasirController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -69,3 +70,6 @@ Route::delete('outlet/{id}', [OutletController::class, 'destroy'])->name('outlet
 // Route buat transaksi
 Route::get('transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
 Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+
+// Route buat laporankasir
+Route::get('/laporankasir', [LaporanKasirController::class, 'index'])->name('laporankasir.index');

@@ -36,10 +36,10 @@
                         {{-- Paket --}}
                         <div class="mb-3">
                             <label for="id_paket" class="form-label">Paket</label>
-                            <select id="id_paket" name="id_paket" class="form-control" required>
+                            <select id="id_paket" name="id_paket" class="form-control" required onchange="hitungPajak()">
                                 <option value="" disabled selected>Pilih Paket</option>
                                 @foreach($paket as $paket)
-                                    <option value="{{ $paket->id }}">{{ $paket->nama_paket }}</option>
+                                    <option value="{{ $paket->id }}" data-harga="{{ $paket->harga }}">{{ $paket->nama_paket }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -64,8 +64,8 @@
 
                         {{-- Pajak --}}
                         <div class="mb-3">
-                            <label for="pajak" class="form-label">Pajak</label>
-                            <input type="number" id="pajak" name="pajak" class="form-control">
+                            <label for="pajak" class="form-label">Pajak (8%)</label>
+                            <input type="number" id="pajak" name="pajak" class="form-control" readonly>
                         </div>
 
                         {{-- Status --}}
@@ -107,4 +107,19 @@
         </div>
     </div>
 </div>
+
+<script>
+function hitungPajak() {
+    const paketSelect = document.getElementById('id_paket');
+    const harga = paketSelect.options[paketSelect.selectedIndex].getAttribute('data-harga');
+    const pajakField = document.getElementById('pajak');
+
+    if (harga) {
+        const pajak = harga * 0.08;
+        pajakField.value = pajak.toFixed(2);
+    } else {
+        pajakField.value = '';
+    }
+}
+</script>
 @endsection

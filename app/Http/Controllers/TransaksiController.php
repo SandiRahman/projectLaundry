@@ -40,7 +40,10 @@ class TransaksiController extends Controller
 
         Transaksi::create(array_merge($request->all(), ['kode_invoice' => $kode_invoice]));
 
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan.');
+        session(['transaksi' => $request->all()]);
+
+
+        return redirect()->route('laporankasir.index')->with('success', 'Transaksi berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -50,6 +53,8 @@ class TransaksiController extends Controller
         $pelanggan = Pelanggan::all();
         $paket = Paket::all();
         $user = User::all();
+
+        session([ 'transaksi_data' => $transaksi->toArray() ]);
 
         return view('transaksi.edit', compact('transaksi', 'outlet', 'pelanggan', 'paket', 'user'));
     }
@@ -72,12 +77,16 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->update($request->all());
 
+        session([ 'transaksi_data' => $request->all() ]);
+
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         Transaksi::findOrFail($id)->delete();
+        session()->forget('transaksi_data');
+
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }
 }
