@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    protected $redirectTo = '/paket';
+    protected $redirectTo = '/transaksi';
 
     /**
      * Validasi input pendaftaran.
@@ -20,7 +20,7 @@ class RegisterController extends Controller
             'nama' => 'required|string|max:100',
             'alamat' => 'required|string',
             'jenis_kelamin' => 'required|in:L,P',
-            'tlp' => 'required|string|max:15|',
+            'tlp' => 'required|string|max:15',
         ]);
     }
 
@@ -51,7 +51,7 @@ class RegisterController extends Controller
         // Membuat pelanggan baru
         $this->create($request->all());
         // Menyimpan nama pelanggan yang baru saja didaftarkan di session
-        session(['nama' => $request->nama]);
+        session(['pelanggan' => $this->create($request->all())]);
         // Redirect ke halaman paket
         return redirect($this->redirectTo);
     }

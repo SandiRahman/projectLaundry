@@ -11,8 +11,9 @@ use App\Http\Controllers\Owner\DashboardOwnerController;
 
 use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\RegisterKhususController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\TransaksiController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -35,12 +36,11 @@ Route::get('/dashboard', [DashboardController::class, 'showDashboardForm'])->nam
 Route::post('/dashboard', [DashboardController::class, 'dashboard']);
 
 
-Route::get('/admindashboard', [AdminDashboardController::class, 'index'])->name('admindashboard');
-Route::post('/admindashboard/store', [AdminDashboardController::class, 'store'])->name('admindashboard.store');
+Route::get('/admindashboard', [DashboardController::class, 'adminDashboard'])->name('admindashboard');
 Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
 
-Route::get('/user-dashboard', [DashboardController::class, 'userDashboard']);
-
+Route::get('/outlet/{id}/edit', [OutletController::class, 'edit'])->name('outletedit');
+Route::put('/outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
 
 // Menggunakan AuthController (jika masih dibutuhkan)
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -70,6 +70,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/paket', [PaketController::class, 'showForm'])->name('paket');
 Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 
+// Route buat ke admin dashboard
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
 
 // Route untuk outlet

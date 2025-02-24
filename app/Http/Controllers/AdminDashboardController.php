@@ -9,8 +9,8 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        $pelanggans = Pelanggan::all(); // Ambil semua data pelanggan
-        return view('admindashboard', compact('pelanggans'));
+        $pelanggan = Pelanggan::all(); // Ambil semua data pelanggan
+        return view('admindashboard', compact('pelanggan'));
     }
 
     public function store(Request $request)

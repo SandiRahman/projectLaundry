@@ -8,11 +8,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'user'; // Pastikan menggunakan tabel 'user'
+    protected $table = 'user';
 
-    protected $fillable = ['nama', 'username', 'password', 'id_outlet', 'role'];
+    protected $fillable = [
+        'id_outlet', 
+        'nama',
+        'username',
+        'password',
+        'role',
+    ];
 
-    protected $hidden = ['password']; // Sembunyikan password saat data dikembalikan sebagai JSON
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    // Relasi ke model Outlet
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class, 'id_outlet');
+    }
 }

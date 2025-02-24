@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Outlet;
+use App\Models\outlet;
 use Illuminate\Http\Request;
 
 class OutletController extends Controller
@@ -10,10 +10,12 @@ class OutletController extends Controller
     public function index()
     {
         // Mengambil semua outlet
-        $outlet = outlet::all();
-
+        $outlet = outlet::all();  // Correct capitalization
         // Mengirim data outlet ke view
-        return view('adminDashboard', compact('outlet'));
+        return view('adminDashboard', [
+            'outlet' => $outlet
+        ]);
+        
     }
 
     public function store(Request $request)
@@ -26,35 +28,43 @@ class OutletController extends Controller
         ]);
 
         // Menyimpan outlet baru
-        outlet::create($request->all());
+        Outlet::create($request->all());  // Correct capitalization
 
         // Kembali ke halaman daftar outlet
-        return redirect()->route('outlet.index')->with('success', 'Outlet berhasil ditambahkan!');
+        return redirect()->route('admindashboard')->with('success', 'Outlet berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'tlp' => 'required',
-        ]);
+    public function edit($id)
+{
+    $outlet = Outlet::findOrFail($id);
+    return view('outletedit', compact('outlet'));
+}
 
-        // Mencari outlet dan update
-        $outlet = outlet::findOrFail($id);
-        $outlet->update($request->all());
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string',
+        'tlp' => 'required|string|max:15'
+    ]);
 
-        // Kembali ke halaman daftar outlet
-        return redirect()->route('outlet.index')->with('success', 'Outlet berhasil diperbarui!');
-    }
+    $outlet = Outlet::findOrFail($id);
+    $outlet->update([
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'tlp' => $request->tlp
+    ]);
+
+    return redirect()->route('admindashboard')->with('success', 'Outlet berhasil diperbarui.');
+}
+
 
     public function destroy($id)
     {
         // Menghapus outlet
-        outlet::destroy($id);
+        Outlet::destroy($id);  // Correct capitalization
 
         // Kembali ke halaman daftar outlet
-        return redirect()->route('outlet.index')->with('success', 'Outlet berhasil dihapus!');
+        return redirect()->route('admindashboard')->with('success', 'Outlet berhasil dihapus!');
     }
 }
