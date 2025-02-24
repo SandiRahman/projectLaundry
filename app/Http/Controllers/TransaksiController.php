@@ -7,22 +7,18 @@ use App\Models\Transaksi;
 use App\Models\Outlet;
 use App\Models\Pelanggan;
 use App\Models\Paket;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class TransaksiController extends Controller
 {
     public function index()
     {
-        $transaksi = Transaksi::with(['outlet', 'pelanggan', 'paket'])->get();
-        return view('transaksi', compact('transaksi'));
-    }
-
-    public function create()
-    {
         $outlet = Outlet::all();
         $pelanggan = Pelanggan::all();
         $paket = Paket::all();
-        return view('transaksi.create', compact('outlet', 'pelanggan', 'paket'));
+        $user = User::all();
+
+        return view('transaksi', compact('outlet', 'pelanggan', 'paket', 'user'));
     }
 
     public function store(Request $request)
@@ -33,13 +29,16 @@ class TransaksiController extends Controller
             'id_paket' => 'required|exists:paket,id',
             'tgl' => 'required|date',
             'batas_waktu' => 'required|date',
-            'diskon' => 'nullable|numeric',
-            'pajak' => 'nullable|numeric',
+            'diskon' => 'nullable|numeric|min:0',
+            'pajak' => 'nullable|numeric|min:0',
             'status' => 'required|in:baru,proses,diantar,selesai',
             'pembayaran' => 'required|in:sudah_dibayar,belum_dibayar',
+            'id_user' => 'required|exists:user,id',
         ]);
 
-        Transaksi::create($request->all());
+        $kode_invoice = 'INV-' . strtoupper(uniqid());
+
+        Transaksi::create(array_merge($request->all(), ['kode_invoice' => $kode_invoice]));
 
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan.');
     }
@@ -47,24 +46,27 @@ class TransaksiController extends Controller
     public function edit($id)
     {
         $transaksi = Transaksi::findOrFail($id);
-        $outlets = Outlet::all();
-        $pelanggans = Pelanggan::all();
-        $pakets = Paket::all();
-        return view('transaksi.edit', compact('transaksi', 'outlets', 'pelanggans', 'pakets'));
+        $outlet = Outlet::all();
+        $pelanggan = Pelanggan::all();
+        $paket = Paket::all();
+        $user = User::all();
+
+        return view('transaksi.edit', compact('transaksi', 'outlet', 'pelanggan', 'paket', 'user'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_outlet' => 'required|exists:outlets,id',
-            'id_pelanggan' => 'required|exists:pelanggans,id',
-            'id_paket' => 'required|exists:pakets,id',
+            'id_outlet' => 'required|exists:outlet,id',
+            'id_pelanggan' => 'required|exists:pelanggan,id',
+            'id_paket' => 'required|exists:paket,id',
             'tgl' => 'required|date',
             'batas_waktu' => 'required|date',
-            'diskon' => 'nullable|numeric',
-            'pajak' => 'nullable|numeric',
+            'diskon' => 'nullable|numeric|min:0',
+            'pajak' => 'nullable|numeric|min:0',
             'status' => 'required|in:baru,proses,diantar,selesai',
             'pembayaran' => 'required|in:sudah_dibayar,belum_dibayar',
+            'id_user' => 'required|exists:user,id',
         ]);
 
         $transaksi = Transaksi::findOrFail($id);

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    protected $redirectTo = '/paket';
+    protected $redirectTo = '/transaksi';
 
     /**
      * Validasi input pendaftaran.

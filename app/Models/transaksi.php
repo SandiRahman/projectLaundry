@@ -19,8 +19,9 @@ class Transaksi extends Model
         'pajak',
         'status',
         'pembayaran',
-        'id_user'
-    ];
+        'id_user',
+        'kode_invoice' // Tambahin ini
+    ];    
 
     public function outlet()
     {

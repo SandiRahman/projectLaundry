@@ -66,4 +66,6 @@ Route::post('outlet', [OutletController::class, 'store'])->name('outlet.store');
 Route::put('outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
 Route::delete('outlet/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');
 
-Route::resource('transaksi', TransaksiController::class);
+// Route buat transaksi
+Route::get('transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');

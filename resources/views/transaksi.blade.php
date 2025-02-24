@@ -14,11 +14,11 @@
                         {{-- Outlet --}}
                         <div class="mb-3">
                             <label for="id_outlet" class="form-label">Outlet</label>
-                            <select id="id_outlet" name="id_outlet" class="form-control" required>
+                            <select id="id_outlet" class="form-control @error('id_outlet') is-invalid @enderror" name="id_outlet" required>
                                 <option value="" disabled selected>Pilih Outlet</option>
                                 @foreach($outlet as $outlet)
-                                    <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
-                                @endforeach
+                                <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
+                                 @endforeach                           
                             </select>
                         </div>
 
@@ -85,6 +85,17 @@
                             <select id="pembayaran" name="pembayaran" class="form-control" required>
                                 <option value="belum_dibayar">Belum Dibayar</option>
                                 <option value="sudah_dibayar">Sudah Dibayar</option>
+                            </select>
+                        </div>
+
+                        {{-- User --}}
+                        <div class="mb-3">
+                            <label for="id_user" class="form-label">User</label>
+                            <select id="id_user" name="id_user" class="form-control" required>
+                                <option value="" disabled selected>Pilih User</option>
+                                @foreach($user as $user)
+                                    <option value="{{ $user->id }}">{{ $user->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
 
