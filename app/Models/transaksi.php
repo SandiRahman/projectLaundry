@@ -15,6 +15,7 @@ class Transaksi extends Model
         'tgl',
         'batas_waktu',
         'tgl_bayar',
+        'harga',
         'diskon',
         'pajak',
         'status',
