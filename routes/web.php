@@ -76,4 +76,3 @@ Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaks
 
 // Route buat laporankasir
 Route::get('/laporankasir', [LaporanKasirController::class, 'index'])->name('laporankasir.index');
-Route::get('/laporankasir/pdf', [LaporanKasirController::class, 'downloadPDF'])->name('laporankasir.pdf');
