@@ -205,11 +205,11 @@
                 <button type="submit" class="btn-primary">{{ __('Login') }}</button>
 
                 @if (Route::has('password.request'))
-                    <a class="btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                    <a class="btn-link" href="{{ route('password.request') }}">{{ __('Lupa Kata Sandi Anda?') }}</a>
                 @endif
 
                 <div class="register-link">
-                    <span>Don't have an account? <a href="{{ route('register') }}">Register here</a></span>
+                    <span>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></span>
                 </div>
 
                 <div class="admin-link">

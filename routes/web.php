@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterKhususController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanKasirController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -73,8 +74,19 @@ Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
 // Route buat ke admin dashboard
 Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin.dashboard');
 
-// Route untuk outlet
-Route::get('/outlet', [OutletController::class, 'index'])->name('outlet.index');
-Route::post('/outlet/store', [OutletController::class, 'store'])->name('outlet.store');
-Route::post('/outlet/update/{id}', [OutletController::class, 'update'])->name('outlet.update');
-Route::post('/outlet/destroy/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');
+// Route buat register khusus
+Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationKhususForm'])->name('registerkhusus');
+Route::post('/registerkhusus', [RegisterKhususController::class, 'registerkhusus']);
+
+// Route buat outlet
+Route::get('outlet', [OutletController::class, 'index'])->name('outlet.index');
+Route::post('outlet', [OutletController::class, 'store'])->name('outlet.store');
+Route::put('outlet/{id}', [OutletController::class, 'update'])->name('outlet.update');
+Route::delete('outlet/{id}', [OutletController::class, 'destroy'])->name('outlet.destroy');
+
+// Route buat transaksi
+Route::get('transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+
+// Route buat laporankasir
+Route::get('/laporankasir', [LaporanKasirController::class, 'index'])->name('laporankasir.index');
