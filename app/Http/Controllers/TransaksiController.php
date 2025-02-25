@@ -29,6 +29,7 @@ class TransaksiController extends Controller
             'id_paket' => 'required|exists:paket,id',
             'tgl' => 'required|date',
             'batas_waktu' => 'required|date',
+            'harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'pajak' => 'nullable|numeric|min:0',
             'status' => 'required|in:baru,proses,diantar,selesai',
@@ -36,12 +37,27 @@ class TransaksiController extends Controller
             'id_user' => 'required|exists:user,id',
         ]);
 
+        // Ambil harga dari tabel paket
+        $paket = Paket::findOrFail($request->id_paket);
+
         $kode_invoice = 'INV-' . strtoupper(uniqid());
 
-        Transaksi::create(array_merge($request->all(), ['kode_invoice' => $kode_invoice]));
+        Transaksi::create([
+            'id_outlet' => $request->id_outlet,
+            'id_pelanggan' => $request->id_pelanggan,
+            'id_paket' => $request->id_paket,
+            'tgl' => $request->tgl,
+            'batas_waktu' => $request->batas_waktu,
+            'harga' => $request->harga, // Harga diambil dari tabel paket
+            'diskon' => $request->diskon,
+            'pajak' => $request->pajak,
+            'status' => $request->status,
+            'pembayaran' => $request->pembayaran,
+            'id_user' => $request->id_user,
+            'kode_invoice' => $kode_invoice,
+        ]);
 
-        session(['transaksi' => $request->all()]);
-
+        session(['transaksi_data' => $request->all()]);
 
         return redirect()->route('laporankasir.index')->with('success', 'Transaksi berhasil ditambahkan.');
     }
@@ -67,6 +83,7 @@ class TransaksiController extends Controller
             'id_paket' => 'required|exists:paket,id',
             'tgl' => 'required|date',
             'batas_waktu' => 'required|date',
+            'harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'pajak' => 'nullable|numeric|min:0',
             'status' => 'required|in:baru,proses,diantar,selesai',

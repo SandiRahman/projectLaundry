@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use PDF;
 
 class LaporanKasirController extends Controller
 {
@@ -16,5 +17,4 @@ class LaporanKasirController extends Controller
 
         return view('laporankasir', compact('transaksi'));
     }
-
 }

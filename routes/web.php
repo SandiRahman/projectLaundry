@@ -16,6 +16,9 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanKasirController;
 
+Route::get('/laporankasir/pdf', [LaporanKasirController::class, 'downloadPDF'])->name('laporankasir.pdf');
+
+
 // Route untuk halaman utama
 Route::get('/', function () {
     return view('welcome');

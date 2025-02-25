@@ -3,83 +3,96 @@
 @section('content')
 <style>
     body {
-        background-color: #f0f8ff;
         font-family: 'Poppins', sans-serif;
-        height: 100vh;
+        background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 20px;
     }
+
     .card {
-        width: 100%;
-        max-width: 700px;
-        border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        background: #ffffff;
-        padding: 30px;
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     }
+    .card-body {
+    width: 100%;
+    max-width: 600px;
+}
+
     .card-header {
-        background-color: #007bff;
-        color: white;
+        font-size: 32px;
         font-weight: bold;
-        font-size: 22px;
-        border-radius: 12px 12px 0 0;
+        color: #1e40af;
         text-align: center;
-        padding: 18px;
+        margin-bottom: 35px;
     }
+
     .form-group {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
     }
+
     .form-label {
-        width: 40%;
         font-weight: 600;
-        color: #333;
-        font-size: 16px;
-    }
-    .form-control {
-        width: 60%;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        padding: 10px;
-        transition: 0.3s;
-    }
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-        padding: 14px;
+        color: #444;
         font-size: 18px;
-        border-radius: 8px;
-        width: 100%;
-        transition: 0.3s;
+        display: block;
+        margin-bottom: 8px;
     }
+
+    .form-control {
+        width: 100%;
+        padding: 16px;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        font-size: 17px;
+    }
+
+    .form-control:focus {
+        border-color: #2563eb;
+        outline: none;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: white;
+        border: none;
+        padding: 16px;
+        width: 100%;
+        font-size: 17px;
+        font-weight: bold;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
     .btn-primary:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
+        background: linear-gradient(135deg, #1e40af, #2563eb);
     }
 </style>
 
 <div class="card">
-    <div class="card-header">{{ __('Tambah Transaksi') }}</div>
-
+    <div class="card-header">{{ __('Entry Transaksi') }}</div>
     <div class="card-body">
         <form method="POST" action="{{ route('transaksi.store') }}">
             @csrf
-
+            
             <div class="form-group">
                 <label for="id_outlet" class="form-label">Outlet</label>
                 <select id="id_outlet" class="form-control" name="id_outlet" required>
                     <option value="" disabled selected>Pilih Outlet</option>
                     @foreach($outlet as $outlet)
                         <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
-                    @endforeach                           
+                    @endforeach
                 </select>
             </div>
 
@@ -95,7 +108,7 @@
 
             <div class="form-group">
                 <label for="id_paket" class="form-label">Paket</label>
-                <select id="id_paket" name="id_paket" class="form-control" required onchange="hitungPajak()">
+                <select id="id_paket" name="id_paket" class="form-control" required onchange="setPaketData()">
                     <option value="" disabled selected>Pilih Paket</option>
                     @foreach($paket as $paket)
                         <option value="{{ $paket->id }}" data-harga="{{ $paket->harga }}">{{ $paket->nama_paket }}</option>
@@ -111,6 +124,11 @@
             <div class="form-group">
                 <label for="batas_waktu" class="form-label">Batas Waktu</label>
                 <input type="datetime-local" id="batas_waktu" name="batas_waktu" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="harga" class="form-label">Harga</label>
+                <input type="number" id="harga" name="harga" class="form-control" readonly>
             </div>
 
             <div class="form-group">
@@ -133,40 +151,25 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="pembayaran" class="form-label">Pembayaran</label>
-                <select id="pembayaran" name="pembayaran" class="form-control" required>
-                    <option value="belum_dibayar">Belum Dibayar</option>
-                    <option value="sudah_dibayar">Sudah Dibayar</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="id_user" class="form-label">User</label>
-                <select id="id_user" name="id_user" class="form-control" required>
-                    <option value="" disabled selected>Pilih User</option>
-                    @foreach($user as $user)
-                        <option value="{{ $user->id }}">{{ $user->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn-primary">Simpan</button>
         </form>
     </div>
 </div>
 
 <script>
-function hitungPajak() {
+function setPaketData() {
     const paketSelect = document.getElementById('id_paket');
     const harga = paketSelect.options[paketSelect.selectedIndex].getAttribute('data-harga');
     const pajakField = document.getElementById('pajak');
+    const hargaField = document.getElementById('harga');
 
     if (harga) {
         const pajak = harga * 0.08;
         pajakField.value = pajak.toFixed(2);
+        hargaField.value = harga;
     } else {
         pajakField.value = '';
+        hargaField.value = '';
     }
 }
 </script>
