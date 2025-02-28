@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login Owner</title>
     <style>
         * {
             box-sizing: border-box;
@@ -175,7 +175,7 @@
         </div>
 
         <div class="right-panel">
-            <div class="card-header">{{ __('Login') }}</div>
+            <div class="card-header">{{ __('Login Owner') }}</div>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -205,16 +205,13 @@
                 <button type="submit" class="btn-primary">{{ __('Login') }}</button>
 
                 @if (Route::has('password.request'))
-                    <a class="btn-link" href="{{ route('password.request') }}">{{ __('Lupa Kata Sandi Anda?') }}</a>
+                    <a class="btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                 @endif
 
                 <div class="register-link">
-                    <span>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></span>
+                    <span>Don't have an account? <a href="{{ route('register') }}">Register here</a></span>
                 </div>
 
-                <div class="admin-link">
-                    <a href="{{ url('/admin/login') }}">Login Admin</a>
-                </div>
             </form>
         </div>
     </div>

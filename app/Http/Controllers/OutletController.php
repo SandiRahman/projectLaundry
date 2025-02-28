@@ -11,9 +11,6 @@ class OutletController extends Controller
     {
         // Mengambil semua outlet
         $outlet = outlet::all();  // Correct capitalization
-
-        return $outlet; 
-
         // Mengirim data outlet ke view
         return view('adminDashboard', [
             'outlet' => $outlet

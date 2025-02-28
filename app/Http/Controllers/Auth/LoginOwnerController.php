@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginOwnerController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('auth.login_owner');
     }
     public function login(Request $request)
     {
@@ -22,25 +22,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            // Simpan id_user ke session
-            $request->session()->put('id_user', Auth::user()->id);
-
-
-            if (auth()->user()->role == 'admin') {
-                return redirect()->intended('/admindashboard'); // Redirect ke dashboard admin
-            }
-            
-            elseif (auth()->user()->role == 'kasir') {
-                return redirect()->intended('/paket');
-            }
-
-            else{
-        
-                    // Jika bukan admin, redirect ke halaman lain (misalnya home)
-                    return redirect()->intended('/dashboard');
-            }
-  
+            return redirect()->intended('/dashboardowner');
         }
 
         return back()->withErrors([
@@ -48,12 +30,14 @@ class LoginController extends Controller
         ]);
     }
 
-
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 }
+
+
+
