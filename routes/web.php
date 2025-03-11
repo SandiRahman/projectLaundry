@@ -8,7 +8,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginOwnerController;
 use App\Http\Controllers\Owner\DashboardOwnerController;
-
 use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterKhususController;
@@ -93,3 +92,4 @@ Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaks
 
 // Route buat laporankasir
 Route::get('/laporankasir', [LaporanKasirController::class, 'index'])->name('laporankasir.index');
+Route::get('/laporan/download', [LaporanKasirController::class, 'downloadPDF'])->name('laporan.download');

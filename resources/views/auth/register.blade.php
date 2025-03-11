@@ -67,7 +67,7 @@
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+        background: linear-gradient(135deg, #7B61FF, #A385FF);
         min-height: 100vh;
         display: flex;
         justify-content: center;
@@ -87,7 +87,7 @@
 
     .left-panel {
         width: 45%;
-        background: linear-gradient(135deg, #0044ff, #0066ff);
+        background: linear-gradient(135deg, #7B61FF, #A385FF);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -111,7 +111,7 @@
     .card-header {
         font-size: 30px;
         font-weight: bold;
-        color: #1e40af;
+        color: #6A4ACB;
         text-align: center;
         margin-bottom: 35px;
     }
@@ -129,12 +129,12 @@
     }
 
     .form-control:focus {
-        border-color: #2563eb;
+        border-color: #7B61FF;
         outline: none;
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #2563eb, #1e40af);
+        background: linear-gradient(135deg, #7B61FF, #6A4ACB);
         color: white;
         border: none;
         padding: 14px;
@@ -147,7 +147,7 @@
     }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #1e40af, #2563eb);
+        background: linear-gradient(135deg, #6A4ACB, #7B61FF);
     }
 
     .register-link {
@@ -157,13 +157,24 @@
     }
 
     .register-link a {
-        color: #1e40af;
+        color: #6A4ACB;
         text-decoration: none;
         font-weight: bold;
     }
 
     .register-link a:hover {
         text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .left-panel, .right-panel {
+            width: 100%;
+            padding: 30px 20px;
+        }
     }
 </style>
 @endsection

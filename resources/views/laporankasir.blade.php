@@ -42,6 +42,19 @@
                                 <td>Pajak</td>
                                 <td>: Rp. {{ session('transaksi_data.pajak') }}</td>
                             </tr>
+                            <tr>
+                                <td><strong>Total Harga</strong></td>
+                                <td>:
+                                    @php
+                                        $harga = session('transaksi_data.harga') ?? 0;
+                                        $diskon = session('transaksi_data.diskon') ?? 0;
+                                        $pajak = session('transaksi_data.pajak') ?? 0;
+                                        $totalHarga = ($harga - ($harga * $diskon / 100)) + $pajak;
+                                    @endphp
+                                    <strong>Rp. {{ number_format($totalHarga, 0, ',', '.') }}</strong>
+                                </td>
+                            </tr>
+                            <a href="{{ route('laporan.download') }}" class="btn btn-danger">Download PDF</a>
 
                         </table>
                     @else
