@@ -35,6 +35,10 @@ class LoginController extends Controller
                 return redirect()->intended('/register');
             }
 
+            elseif (auth()->user()->role == 'owner') {
+                return redirect()->intended('/dashboardowner');
+            }
+
             else{
         
                     // Jika bukan admin, redirect ke halaman lain (misalnya home)

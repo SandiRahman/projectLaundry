@@ -7,8 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginOwnerController;
-use App\Http\Controllers\Owner\DashboardOwnerController;
-
+use App\Http\Controllers\DashboardOwnerController;
 use App\Http\Controllers\Auth\PaketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterKhususController;
