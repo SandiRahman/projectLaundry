@@ -3,130 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Daftar - Laundry Pro</title>
     <style>
-        /* Reset dasar */
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            padding: 20px;
         }
 
-        .container {
-            background: white;
-            padding: 30px;
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
             text-align: center;
         }
 
-        h2 {
+        .register-container h2 {
             margin-bottom: 20px;
-            color: #1e40af;
+            font-size: 2rem;
         }
 
-        form {
+        .register-container form {
             display: flex;
             flex-direction: column;
         }
 
-        label {
-            text-align: left;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #475569;
-        }
-
-        input, select, textarea {
+        .register-container input {
             padding: 10px;
-            font-size: 16px;
-            border: 1px solid #94a3b8;
-            border-radius: 5px;
             margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #3b82f6;
-            outline: none;
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
-        }
-
-        button {
-            background: #3b82f6;
-            color: white;
-            padding: 12px;
-            font-size: 16px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 1rem;
         }
 
-        button:hover {
-            background: #2563eb;
+        .register-container input:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
-        p {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        a {
+        .register-container button {
+            padding: 10px;
+            background: white;
             color: #2563eb;
-            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
             font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        a:hover {
+        .register-container button:hover {
+            background: #dbeafe;
+        }
+
+        .register-container .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .register-container .login-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .register-container .login-link a {
+            color: white;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h2>Form Registrasi</h2>
-    <form action="{{ route('register') }}" method="POST">
-        @csrf
-
-        <label for="namalengkap">Nama Lengkap</label>
-        <input type="text" name="namalengkap" id="namalengkap" required>
-
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" required>
-
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-
-        <label for="id_outlet">ID Outlet</label>
-        <input type="number" name="id_outlet" id="id_outlet" required>
-
-        <label for="role">Role</label>
-        <select name="role" id="role" required>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-            <option value="owner">Owner</option>
-        </select>
-
-        <button type="submit">Daftar</button>
-    </form>
-
-    <p>Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
-</div>
-
+    <div class="register-container">
+        <h2>Daftar</h2>
+        @if ($errors->any())
+            <div class="error-message">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('register') }}" method="POST">
+            @csrf
+            <input type="text" name="nama" placeholder="Nama Lengkap" value="{{ old('nama') }}" required>
+            @error('nama')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}" required>
+            @error('username')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <input type="password" name="password" placeholder="Password" required>
+            @error('password')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
+            @error('password_confirmation')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <button type="submit">Daftar</button>
+        </form>
+        <div class="login-link">
+            Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,117 +1,135 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('registerkhusus') }}">
-                        @csrf
-
-                        {{-- Outlet --}}
-                        <div class="col-md-6">
-                            <select id="id_outlet" class="form-control @error('id_outlet') is-invalid @enderror" name="id_outlet" required>
-                                <option value="">Pilih Outlet</option>
-                                @foreach ($outlet as $outlet)
-                                    <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
-                                @endforeach
-                            </select>
-                    
-                            @error('id_outlet')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        {{-- Nama --}}
-                        <div class="row mb-3">
-                            <label for="nama" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
-
-                                @error('nama')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Username --}}
-                        <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
-
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Password --}}
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Konfirmasi Password --}}
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        {{-- Role --}}
-                        <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
-                                    <option value="owner">Owner</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="kasir">Kasir</option>
-                                </select>
-
-                                @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Tombol Register --}}
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Khusus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registrasi Khusus</h2>
+        <form method="POST" action="{{ route('registerkhusus') }}">
+            @csrf
+            <!-- Input Nama -->
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" name="nama" id="nama" value="{{ old('nama') }}" required>
+                @error('nama')
+                    <span class="error">{{ $message }}</span>
+                @enderror
             </div>
-        </div>
+
+            <!-- Input Username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="{{ old('username') }}" required>
+                @error('username')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Input Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+                @error('password')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Input Konfirmasi Password -->
+            <div class="form-group">
+                <label for="password_confirmation">Konfirmasi Password</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" required>
+            </div>
+
+            <!-- Input Role -->
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" id="role" required>
+                    <option value="owner">Owner</option>
+                    <option value="admin">Admin</option>
+                    <option value="kasir">Kasir</option>
+                </select>
+                @error('role')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Input Outlet -->
+            <div class="form-group">
+                <label for="id_outlet">Outlet</label>
+                <select name="id_outlet" id="id_outlet" required>
+                    <option value="">Pilih Outlet</option>
+                    @foreach($outlet as $outlet)
+                        <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
+                    @endforeach
+                </select>
+                @error('id_outlet')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Tombol Submit -->
+            <button type="submit" class="btn-primary">Daftar</button>
+        </form>
     </div>
-</div>
-@endsection
+</body>
+</html>

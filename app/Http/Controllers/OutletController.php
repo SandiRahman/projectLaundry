@@ -9,13 +9,8 @@ class OutletController extends Controller
 {
     public function index()
     {
-        // Mengambil semua outlet
-        $outlet = outlet::all();  // Correct capitalization
-        // Mengirim data outlet ke view
-        return view('adminDashboard', [
-            'outlet' => $outlet
-        ]);
-        
+        $outlet = Outlet::all(); // Ambil semua paket
+        return view('admindashboard', compact('outlet'));
     }
 
     public function store(Request $request)

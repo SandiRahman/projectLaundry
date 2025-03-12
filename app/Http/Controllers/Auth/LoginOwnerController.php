@@ -12,19 +12,22 @@ class LoginOwnerController extends Controller
     {
         return view('auth.login_owner');
     }
+
     public function login(Request $request)
     {
-        
+        // Validasi input
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
         ]);
 
+        // Coba autentikasi
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboardowner');
         }
 
+        // Jika autentikasi gagal, kembalikan ke halaman login dengan pesan error
         return back()->withErrors([
             'username' => 'Username atau password salah',
         ]);
@@ -38,6 +41,3 @@ class LoginOwnerController extends Controller
         return redirect('/');
     }
 }
-
-
-

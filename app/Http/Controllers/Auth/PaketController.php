@@ -1,38 +1,67 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers; // Pastikan namespace ini benar
 
 use Illuminate\Http\Request;
-use App\Models\Paket; // Assuming you have a Paket model
-use App\Http\Controllers\Controller;
-use App\Models\Outlet;
+use App\Models\Paket; // Pastikan model Paket diimpor
 
 class PaketController extends Controller
 {
-    public function showForm()
+    // Method untuk menampilkan semua paket
+    public function index()
     {
-        $outlet = Outlet::all(); // Ambil semua outlet
-        return view('/paket', compact('outlet'));
+        $paket = Paket::all();
+        return view('paket.index', compact('paket'));
     }
 
+    // Method untuk menampilkan form tambah paket
+    public function create()
+    {
+        return view('paket.create');
+    }
+
+    // Method untuk menyimpan paket baru
     public function store(Request $request)
     {
         $request->validate([
-            'id_outlet' => 'required|exists:outlet,id', // Pastikan id_outlet ada di tabel outlets
+            'id_outlet' => 'required|exists:outlets,id',
             'jenis' => 'required|string',
             'nama_paket' => 'required|string|max:255',
             'jumlah' => 'required|integer',
             'harga' => 'required|numeric',
         ]);
 
-        Paket::create([
-            'id_outlet' => $request->id_outlet,
-            'jenis' => $request->jenis,
-            'nama_paket' => $request->nama_paket,
-            'jumlah' => $request->jumlah,
-            'harga' => $request->harga,
+        Paket::create($request->all());
+
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil ditambahkan!');
+    }
+
+    // Method untuk menampilkan form edit paket
+    public function edit(Paket $paket)
+    {
+        return view('paket.edit', compact('paket'));
+    }
+
+    // Method untuk mengupdate paket
+    public function update(Request $request, Paket $paket)
+    {
+        $request->validate([
+            'id_outlet' => 'required|exists:outlets,id',
+            'jenis' => 'required|string',
+            'nama_paket' => 'required|string|max:255',
+            'jumlah' => 'required|integer',
+            'harga' => 'required|numeric',
         ]);
 
-        return redirect()->route('transaksi.index')->with('success', 'Paket berhasil ditambahkan');
+        $paket->update($request->all());
+
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil diperbarui!');
+    }
+
+    // Method untuk menghapus paket
+    public function destroy(Paket $paket)
+    {
+        $paket->delete();
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil dihapus!');
     }
 }
