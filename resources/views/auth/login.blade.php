@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+            background: linear-gradient(135deg, #7B61FF, #A385FF);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -33,7 +33,7 @@
 
         .left-panel {
             width: 45%;
-            background: linear-gradient(135deg, #0044ff, #0066ff);
+            background: linear-gradient(135deg, #7B61FF, #A385FF);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,7 +58,7 @@
         .card-header {
             font-size: 30px;
             font-weight: bold;
-            color: #1e40af;
+            color: #6A4ACB;
             text-align: center;
             margin-bottom: 35px;
         }
@@ -76,26 +76,12 @@
         }
 
         .form-control:focus {
-            border-color: #2563eb;
+            border-color: #7B61FF;
             outline: none;
         }
 
-        .form-check {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .form-check input {
-            margin-right: 8px;
-        }
-
-        .form-check label {
-            font-size: 14px;
-        }
-
         .btn-primary {
-            background: linear-gradient(135deg, #2563eb, #1e40af);
+            background: linear-gradient(135deg, #7B61FF, #6A4ACB);
             color: white;
             border: none;
             padding: 14px;
@@ -108,11 +94,11 @@
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #1e40af, #2563eb);
+            background: linear-gradient(135deg, #6A4ACB, #7B61FF);
         }
 
         .btn-link {
-            color: #2563eb;
+            color: #7B61FF;
             text-decoration: none;
             font-size: 14px;
             margin-top: 12px;
@@ -131,28 +117,12 @@
         }
 
         .register-link a {
-            color: #1e40af;
+            color: #6A4ACB;
             text-decoration: none;
             font-weight: bold;
         }
 
         .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .admin-link {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .admin-link a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .admin-link a:hover {
             text-decoration: underline;
         }
 
@@ -175,45 +145,18 @@
         </div>
 
         <div class="right-panel">
-            <div class="card-header">{{ __('Login') }}</div>
+            <div class="card-header">Login</div>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-
                 <div class="form-group">
-                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Username" value="{{ old('username') }}" required autofocus>
-                    @error('username')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <input id="username" type="text" class="form-control" name="username" placeholder="Username" required autofocus>
                 </div>
-
                 <div class="form-group">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
                 </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                    <label for="remember">{{ __('Remember Me') }}</label>
-                </div>
-
-                <button type="submit" class="btn-primary">{{ __('Login') }}</button>
-
-                @if (Route::has('password.request'))
-                    <a class="btn-link" href="{{ route('password.request') }}">{{ __('Lupa Kata Sandi Anda?') }}</a>
-                @endif
-
+                <button type="submit" class="btn-primary">Login</button>
                 <div class="register-link">
-                    <span>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></span>
-                </div>
-
-                <div class="admin-link">
-                    <a href="{{ url('/admin/login') }}">Login Admin</a>
+                    <span>Belum punya akun? <a href="{{ route('registerkhusus') }}">Daftar di sini</a></span>
                 </div>
             </form>
         </div>

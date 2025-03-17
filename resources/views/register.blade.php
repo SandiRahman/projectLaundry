@@ -1,127 +1,180 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - Laundry Pro</title>
-    <style>
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+@extends('layouts.app')
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+@section('content')
+<div class="container">
+    <div class="left-panel">
+        <img src ="{{ asset('foto/laundry.png') }}" alt="Laundry Image">
+    </div>
+    <div class="right-panel">
+        <div class="card-header">{{ __('Register Pelanggan') }}</div>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-        .register-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+            <div class="form-group">
+                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Nama" value="{{ old('nama') }}" required autofocus>
+                @error('nama')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
 
-        .register-container h2 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
+            <div class="form-group">
+                <textarea id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Alamat" required>{{ old('alamat') }}</textarea>
+                @error('alamat')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
 
-        .register-container form {
-            display: flex;
+            <div class="form-group">
+                <select id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" required>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+                @error('jenis_kelamin')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <input id="tlp" type="text" class="form-control @error('tlp') is-invalid @enderror" name="tlp" placeholder="Telepon" value="{{ old('tlp') }}" required>
+                @error('tlp')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn-primary">{{ __('Register') }}</button>
+
+            <div class="register-link">
+                <span>Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #7B61FF, #A385FF);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1100px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        display: flex;
+        overflow: hidden;
+    }
+
+    .left-panel {
+        width: 45%;
+        background: linear-gradient(135deg, #7B61FF, #A385FF);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-panel img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .right-panel {
+        width: 55%;
+        padding: 50px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card-header {
+        font-size: 30px;
+        font-weight: bold;
+        color: #6A4ACB;
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    .form-control:focus {
+        border-color: #7B61FF;
+        outline: none;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #7B61FF, #6A4ACB);
+        color: white;
+        border: none;
+        padding: 14px;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #6A4ACB, #7B61FF);
+    }
+
+    .register-link {
+        margin-top: 20px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .register-link a {
+        color: #6A4ACB;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container {
             flex-direction: column;
         }
 
-        .register-container input {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+        .left-panel, .right-panel {
+            width: 100%;
+            padding: 30px 20px;
         }
-
-        .register-container input:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .register-container button {
-            padding: 10px;
-            background: white;
-            color: #2563eb;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .register-container button:hover {
-            background: #dbeafe;
-        }
-
-        .register-container .error-message {
-            color: red;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .register-container .login-link {
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-
-        .register-container .login-link a {
-            color: white;
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="register-container">
-        <h2>Daftar</h2>
-        @if ($errors->any())
-            <div class="error-message">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form action="{{ route('register') }}" method="POST">
-            @csrf
-            <input type="text" name="nama" placeholder="Nama Lengkap" value="{{ old('nama') }}" required>
-            @error('nama')
-                <div class="error-message">{{ $message }}</div>
-            @enderror
-            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}" required>
-            @error('username')
-                <div class="error-message">{{ $message }}</div>
-            @enderror
-            <input type="password" name="password" placeholder="Password" required>
-            @error('password')
-                <div class="error-message">{{ $message }}</div>
-            @enderror
-            <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
-            @error('password_confirmation')
-                <div class="error-message">{{ $message }}</div>
-            @enderror
-            <button type="submit">Daftar</button>
-        </form>
-        <div class="login-link">
-            Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
-        </div>
-    </div>
-</body>
-</html>
+    }
+</style>
+@endsection

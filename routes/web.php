@@ -41,8 +41,7 @@ Route::post('/logoutowner', [LoginOwnerController::class, 'logout'])->name('owne
 
 // Route untuk dashboard pengguna
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/registerkhusus', [RegisterKhususController::class, 'showRegistrationKhususForm'])->name('registerkhusus');
 });
 
 // Route untuk dashboard admin
@@ -56,29 +55,21 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route untuk CRUD Paket
-Route::middleware('auth')->group(function () {
-    // Menampilkan daftar paket
-    Route::get('/paket', [PaketController::class, 'index'])->name('paket.index');
-
-    // Menampilkan form tambah paket
-    Route::get('/paket/create', [PaketController::class, 'create'])->name('paket.create');
-
-    // Menyimpan paket baru
-    Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
-
-    // Menampilkan form edit paket
-    Route::get('/paket/{paket}/edit', [PaketController::class, 'edit'])->name('paket.edit');
-
-    // Mengupdate paket
-    Route::put('/paket/{paket}', [PaketController::class, 'update'])->name('paket.update');
-
-    // Menghapus paket
-    Route::delete('/paket/{paket}', [PaketController::class, 'destroy'])->name('paket.destroy');
-});
+Route::get('/paket', [PaketController::class, 'index'])->name('paket.index');
+Route::get('/paket/create', [PaketController::class, 'create'])->name('paket.create');
+Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
+Route::get('/paket/{paket}/edit', [PaketController::class, 'edit'])->name('paket.edit');
+Route::put('/paket/{paket}', [PaketController::class, 'update'])->name('paket.update');
+Route::delete('/paket/{paket}', [PaketController::class, 'destroy'])->name('paket.destroy');
 
 // Route untuk CRUD Outlet
 Route::middleware('auth')->group(function () {
-    Route::resource('outlet', OutletController::class);
+    Route::get('/outlet', [OutletController::class, 'index'])->name('outlet.index');
+    Route::get('/outlet/create', [OutletController::class, 'create'])->name('outlet.create');
+    Route::post('/outlet', [OutletController::class, 'store'])->name('outlet.store');
+    Route::get('/outlet/{outlet}/edit', [OutletController::class, 'edit'])->name('outlet.edit');
+    Route::put('/outlet/{outlet}', [OutletController::class, 'update'])->name('outlet.update');
+    Route::delete('/outlet/{outlet}', [OutletController::class, 'destroy'])->name('outlet.destroy');
 });
 
 // Route untuk CRUD User

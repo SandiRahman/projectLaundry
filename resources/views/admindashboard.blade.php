@@ -14,8 +14,8 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f4f4f4;
-            color: #333;
+            background: #6A4ACB;
+            color: #6A4ACB;
         }
 
         .dashboard-container {
@@ -25,8 +25,8 @@
         }
 
         header {
-            background: #2563eb;
-            color: white;
+            background:white;
+            color: black;
             padding: 20px;
             text-align: center;
             border-radius: 10px;
@@ -47,7 +47,7 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px #6A4ACB;
             flex: 1;
             margin: 0 10px;
             text-align: center;
@@ -60,7 +60,7 @@
 
         .card p {
             font-size: 1.2rem;
-            color: #666;
+            color: #6A4ACB;
         }
 
         .navigation {
@@ -83,7 +83,7 @@
 
         .navigation ul li a {
             text-decoration: none;
-            color: #2563eb;
+            color: #6A4ACB;
             font-weight: bold;
             font-size: 1.1rem;
         }
@@ -117,7 +117,7 @@
         }
 
         .content table th {
-            background: #2563eb;
+            background:#6A4ACB;
             color: white;
         }
 

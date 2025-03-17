@@ -1,5 +1,6 @@
 <?php
 
+// App\Models\Outlet
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,12 +10,13 @@ class Outlet extends Model
 {
     use HasFactory;
 
-    protected $table = 'outlet'; // Sesuaikan dengan nama tabel
+    protected $table = 'outlet';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['nama', 'alamat', 'tlp'];
 
     public function paket()
     {
-        return $this->hasMany(Paket::class, 'id_outlet');
+        return $this->hasMany(Paket::class, 'id');
     }
 }

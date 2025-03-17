@@ -10,7 +10,13 @@ class OutletController extends Controller
     public function index()
     {
         $outlet = Outlet::all(); // Ambil semua paket
-        return view('admindashboard', compact('outlet'));
+        return view('outlet.index', compact('outlet'));
+    }
+
+    public function create()
+    {
+        $outlet = Outlet::all(); // Ambil semua data outlet
+        return view('outlet.create', compact('outlet'));
     }
 
     public function store(Request $request)

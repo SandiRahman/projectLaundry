@@ -3,121 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry</title>
+    <title>Dashboard</title>
     <style>
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        text-align: center;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    /* Video Background */
+    .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+     /* Navbar Transparan */
+     .navbar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .logo img {
+        height: 80px;
+        margin-right: 10px;
+    }
+
+    .navbar .header-title {
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar .button-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .navbar .button-group a {
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar .button-group a:hover {
+        background: rgba(255, 255, 255, 0.5);
+        color: #000;
+    }
+
+    /* Main Content */
+    .main-content {
+        margin-top: 100px;
+        padding: 20px;
+    }
+
+    /* Welcome Section */
+    .welcome-section {
+        background: rgba(100, 50, 150, 0.8); /* Warna ungu dengan opasitas 80% */
+        padding: 40px 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .welcome-section h1 {
+        font-size: 36px;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-section p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    /* About Section */
+    .about-section {
+        background: rgba(100, 50, 150, 0.8); /* Warna ungu dengan opasitas 80% */
+        padding: 30px 20px;
+        border-radius: 10px;
+    }
+
+    .about-section h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .about-section p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .navbar {
+            flex-direction: column;
+            text-align: center;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
-            color: white;
-            line-height: 1.6;
+        .navbar .button-group {
+            margin-top: 10px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .welcome-section {
             padding: 20px;
         }
 
-        header {
-            text-align: center;
-            padding: 50px 0;
+        .welcome-section h1 {
+            font-size: 28px;
         }
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .about-section {
+            padding: 15px;
         }
 
-        header p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .about-section h2 {
+            font-size: 24px;
         }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: white;
-            color: #2563eb;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #dbeafe;
-        }
-
-        .features {
-            display: flex;
-            justify-content: space-between;
-            margin: 50px 0;
-        }
-
-        .feature {
-            flex: 1;
-            text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 0 10px;
-        }
-
-        .feature h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            font-size: 1rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            background: rgba(0, 0, 0, 0.2);
-            margin-top: 50px;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-        }
+    }
+</style>
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Selamat Datang di Laundry</h1>
-            <p>Layanan laundry terbaik dengan harga terjangkau dan hasil maksimal.</p>
-            <a href="{{ route('login') }}" class="btn">Login</a>
-            <a href="{{ route('register') }}" class="btn">Daftar</a>
-        </header>
-
-        <section class="features">
-            <div class="feature">
-                <h2>Cepat</h2>
-                <p>Proses laundry cepat dan tepat waktu.</p>
-            </div>
-            <div class="feature">
-                <h2>Bersih</h2>
-                <p>Hasil laundry bersih dan wangi.</p>
-            </div>
-            <div class="feature">
-                <h2>Terjangkau</h2>
-                <p>Harga terjangkau untuk semua kalangan.</p>
-            </div>
-        </section>
-
-        <footer>
-            <p>&copy; 2023 Laundry Pro. Semua hak dilindungi.</p>
-        </footer>
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">
+        <img src="/foto/laundry.png" alt="Logo Laundry">
+        <span class="header-title">Dashboard Laundry</span>
     </div>
+    <div class="button-group">
+        <a href="/register">Sign Up</a>
+        <a href="/login">Sign In</a>
+    </div>
+</div>
+
+<!-- Video Background -->
+<video class="video-background" autoplay loop muted>
+    <source src="/videos/laundry.mp4" type="video/mp4">
+    Browser Anda tidak mendukung video.
+</video>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Welcome to Our Laundry Dashboard</h1>
+        <p>Manage your laundry services efficiently with our modern dashboard. Track orders, manage customers, and optimize your operations all in one place.</p>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+        <h2>About Us</h2>
+        <p>We are a professional laundry service provider dedicated to delivering clean, fresh, and quality laundry solutions to our customers. With years of experience in the industry, we combine traditional care with modern technology to ensure your satisfaction.</p>
+    </div>
+</div>
 </body>
 </html>
