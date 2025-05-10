@@ -3,38 +3,61 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        return view('auth.login');
+    }
+    public function login(Request $request)
+    {
+        
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // Simpan id_user ke session
+            $request->session()->put('id_user', Auth::user()->id);
+
+
+            if (auth()->user()->role == 'admin') {
+                return redirect()->intended('/admindashboard'); // Redirect ke dashboard admin
+            }
+            
+            elseif (auth()->user()->role == 'kasir') {
+                return redirect()->intended('/register');
+            }
+
+            elseif (auth()->user()->role == 'owner') {
+                return redirect()->intended('/dashboardowner');
+            }
+
+            else{
+        
+                    // Jika bukan admin, redirect ke halaman lain (misalnya home)
+                    return redirect()->intended('/dashboard');
+            }
+  
+        }
+
+        return back()->withErrors([
+            'username' => 'Username atau password salah',
+        ]);
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }

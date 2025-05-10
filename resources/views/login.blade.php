@@ -100,7 +100,8 @@
 
     <div class="container">
         <h2>Login</h2>
-        <form action= {{ route('login') }} method="POST">
+        <form action="{{ route('login') }}" method="POST">
+        @csrf
             <div>
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>
@@ -111,7 +112,7 @@
                 <input type="password" name="password" id="password" required>
             </div>
 
-            <button type="submit" onclick="showDashboardForm()">Login</button>
+            <button type="submit">Login</button>
         </form>
 
         <p>Belum punya akun? <a href= {{ route('register') }}>Daftar di sini</a></p>
