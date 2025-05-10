@@ -1,121 +1,165 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* Reset dasar */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #7B61FF, #A385FF);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             padding: 20px;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 1100px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            width: 45%;
+            background: linear-gradient(135deg, #7B61FF, #A385FF);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .left-panel img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .right-panel {
+            width: 55%;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-header {
+            font-size: 30px;
+            font-weight: bold;
+            color: #6A4ACB;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: #7B61FF;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7B61FF, #6A4ACB);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #6A4ACB, #7B61FF);
+        }
+
+        .btn-link {
+            color: #7B61FF;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 12px;
+            display: block;
             text-align: center;
         }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #1e40af;
+        .btn-link:hover {
+            text-decoration: underline;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            text-align: left;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #475569;
-        }
-
-        input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #94a3b8;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #3b82f6;
-            outline: none;
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
-        }
-
-        button {
-            background: #3b82f6;
-            color: white;
-            padding: 12px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #2563eb;
-        }
-
-        p {
-            margin-top: 15px;
+        .register-link {
+            margin-top: 20px;
             font-size: 14px;
+            text-align: center;
         }
 
-        a {
-            color: #2563eb;
+        .register-link a {
+            color: #6A4ACB;
             text-decoration: none;
             font-weight: bold;
         }
 
-        a:hover {
+        .register-link a:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel, .right-panel {
+                width: 100%;
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>Login</h2>
-        <form action= {{ route('login') }} method="POST">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
-            </div>
+        <div class="left-panel">
+            <img src ="{{ asset('foto/laundry.png') }}" alt="Laundry Image">
+        </div>
 
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-
-            <button type="submit" onclick="showDashboardForm()">Login</button>
-        </form>
-
-        <p>Belum punya akun? <a href= {{ route('register') }}>Daftar di sini</a></p>
+        <div class="right-panel">
+            <div class="card-header">Login</div>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="form-group">
+                    <input id="username" type="text" class="form-control" name="username" placeholder="Username" required autofocus>
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <div class="register-link">
+                    <span>Belum punya akun? <a href="{{ route('registerkhusus') }}">Daftar di sini</a></span>
+                </div>
+            </form>
+        </div>
     </div>
-
 </body>
 </html>
